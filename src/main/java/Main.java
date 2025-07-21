@@ -1,16 +1,22 @@
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 
 public class Main {
-    public static void main(String[] args) {
-        try (FileReader reader = new FileReader("C:\\Users\\admin\\IdeaProjects\\input_fio\\src\\main\\resources\\fio.txt")) {
-            int c;
-            while ((c= reader.read()) != -1){
-                System.out.println((char)c);
+    public static void main(String[] args) throws IOException {
+        ArrayList<String> fio = new ArrayList<>();
+        InputStream inputStream = Main.class.getResourceAsStream("/fio.txt");
+        if (inputStream != null) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                fio.add(line);
             }
         }
-        catch(IOException ex){
-            System.out.println(ex.getMessage());
+        else {
+            System.err.println("Файл fio.txt не найден в ресурсах");
+        }
+        for (String s : fio) {
+            System.out.println(s);
         }
     }
 }
